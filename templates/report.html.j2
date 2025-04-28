@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Complexity Report</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      background-color: #ffffff;
+      color: #24292f;
+      padding: 2em;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1em;
+    }
+    th, td {
+      border: 1px solid #d0d7de;
+      padding: 8px 12px;
+      text-align: left;
+    }
+    th {
+      background-color: #f6f8fa;
+      cursor: pointer;
+    }
+    tr:nth-child(even) {
+      background-color: #f6f8fa;
+    }
+    h1 {
+      border-bottom: 1px solid #d0d7de;
+      padding-bottom: 0.3em;
+    }
+  </style>
+</head>
+<body>
+  <h1>Complexity Report</h1>
+  <table id="complexityTable">
+    <thead>
+      <tr>
+        <th onclick="sortTable(0)">Function</th>
+        <th onclick="sortTable(1)">LOC</th>
+        <th onclick="sortTable(2)">Cyclomatic</th>
+        <th onclick="sortTable(3)">Cognitive</th>
+        <th onclick="sortTable(4)">Halstead Volume</th>
+        <th onclick="sortTable(5)">MI</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for func in results %}
+      <tr>
+        <td>{{ func.name }}</td>
+        <td>{{ func.loc }}</td>
+        <td>{{ func.cyclomatic }}</td>
+        <td>{{ func.cognitive }}</td>
+        <td>{{ "%.2f"|format(func.halstead) }}</td>
+        <td>{{ "%.1f"|format(func.mi) }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+  <script>
+    function sortTable(n) {
+      const table = document.getElementById("complexityTable");
+      let switching = true;
+      let dir = "asc";
+      let switchcount = 0;
+
+      while (switching) {
+        switching = false;
+        const rows = table.rows;
+        let shouldSwitch = false;
+        let i = 0;
+        for (i = 1; i < (rows.length - 1); i++) {
+          const x = rows[i].getElementsByTagName("TD")[n];
+          const y = rows[i + 1].getElementsByTagName("TD")[n];
+          const xContent = isNaN(x.innerHTML) ? x.innerHTML.toLowerCase() : parseFloat(x.innerHTML);
+          const yContent = isNaN(y.innerHTML) ? y.innerHTML.toLowerCase() : parseFloat(y.innerHTML);
+          if ((dir === "asc" && xContent > yContent) || (dir === "desc" && xContent < yContent)) {
+            shouldSwitch = true;
+            break;
+          }
+        }
+        if (shouldSwitch) {
+          rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+          switching = true;
+          switchcount++;
+        } else {
+          if (switchcount === 0 && dir === "asc") {
+            dir = "desc";
+            switching = true;
+          }
+        }
+      }
+    }
+  </script>
+</body>
+</html>
