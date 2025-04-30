@@ -13,22 +13,10 @@ It computes the following metrics:
 
 ---
 
-## 📦 Installation
-
-```bash
-docker build -t clang-metrix .
-```
-
-**Requirements:**
-
-- Docker
-
----
-
 ## 🚀 Usage
 
 ```bash
-docker run --rm -v "$PWD:/data" clang-metrix /data/example.c --format html --output /data/report.html
+docker run --rm -v "$PWD:/data" yoshihideshirai/clang-metrix --format html --output /data/report.html /data/examples/example.c
 ```
 
 ### 🔧 Options
@@ -40,7 +28,7 @@ docker run --rm -v "$PWD:/data" clang-metrix /data/example.c --format html --out
 
 Example:
 ```bash
-docker run --rm -v "$PWD:/data" clang-metrix /data/example.c --format json --output /data/report.json
+docker run --rm -v "$PWD:/data" yoshihideshirai/clang-metrix /data/example.c --format json --output /data/report.json
 ```
 
 ---
