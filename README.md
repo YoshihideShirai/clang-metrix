@@ -21,10 +21,10 @@ docker run --rm -v "$PWD:/data" yoshihideshirai/clang-metrix --format html --out
 
 ### 🔧 Options
 
-| Option              | Description                                        |
-|---------------------|----------------------------------------------------|
-| `--format html|json`| Output format (`html` by default)                 |
-| `--output FILE`     | Output file name (`report.html` or `report.json`) |
+| Option               | Description                                        |
+|----------------------|----------------------------------------------------|
+| `--format html\|json`| Output format (`html` by default)                 |
+| `--output FILE`      | Output file name (`report.html` or `report.json`) |
 
 Example:
 ```bash
